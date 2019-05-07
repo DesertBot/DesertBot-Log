@@ -4,7 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="loglook.css">
-<script src="eventsscript.js"></script>
 <title>
 <?php
 $starttime = microtime(TRUE);
