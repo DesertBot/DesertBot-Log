@@ -3,7 +3,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="loglook.css">
 <title>
 <?php
 $starttime = microtime(TRUE);
@@ -23,6 +22,17 @@ if ($network !== FALSE and $channel !== FALSE and $date !== FALSE) {
 else echo 'Log Prettifier';
 ?>
 </title>
+<?php
+$darkMode = FALSE;
+if (isset($_GET['darkmode']) and $_GET['darkmode'] === 'true') {
+    $darkMode = TRUE;
+    // Dark CSS theme
+    echo '<link rel="stylesheet" type="text/css" href="logdark.css">';
+}
+else {
+    echo '<link rel="stylesheet" type="text/css" href="loglight.css">';
+}
+?>
 </head>
 <body>
 <?php
@@ -43,8 +53,17 @@ else {
 			$eventLinkUrl = preg_replace('/hideevents=[^&\z]+/', 'hideevents='.($hideEvents?'false':'true'), $eventLinkUrl);
 		}
 		//otherwise, add it on
-		else $eventLinkUrl .= '&hideevents='.($hideEvents?'false':'true');
-		echo '<p><span><a href="'.$eventLinkUrl.'">'.($hideEvents?'Show':'Hide').' events</a></span></p>'."\r\n";
+        else $eventLinkUrl .= '&hideevents='.($hideEvents?'false':'true');
+
+        $darkModeLinkUrl = $_SERVER['REQUEST_URI'];
+        // If there's already a darkmode setting, replace that
+        if (strpos($darkModeLinkUrl, 'darkmode') !== FALSE) {
+            $darkModeLinkUrl = preg_replace('/darkmode=[^&\z]+/', 'darkmode='.($darkMode?'false':'true'), $darkModeLinkUrl);
+        }
+        // otherwise, add it on
+        else $darkModeLinkUrl .= '&darkmode='.($darkMode?'false':'true');
+
+		echo '<p><span><a href="'.$eventLinkUrl.'">'.($hideEvents?'Show':'Hide').' events</a> | <a href="'.$darkModeLinkUrl.'">'.($darkMode?'Light':'Dark').' mode</a></span></p>'."\r\n";
 		
 		echo '<table class="log" id="log"><tr class="message"> <th class="time">TIME</th> <th class="user">NICK</th> <th class="text">MESSAGE</th></tr>'."\r\n";
 		//Get the length of the first section of the first line, which is assumed to be the timestamp
