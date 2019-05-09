@@ -1,0 +1,31 @@
+version: '3.5'
+
+services:
+  chat-logs:
+    image: php:7.2-apache
+    container_name: chat-logs
+    ports:
+      - 8085:80
+    networks:
+      - web
+    environment:
+      - ALLOW_OVERRIDE=true
+    volumes:
+      - ${PERSISTENT_DIR}/www:/var/www/html
+      - ${LOG_DIR}:/logpath
+    labels:
+      - "traefik.domain=logs.${DOMAIN_DBCO}"
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+      - "traefik.backend=chat-logs"
+      - "traefik.frontend.rule=Host:logs.${DOMAIN_DBCO}"
+      - "traefik.port=80"
+      - "traefik.protocol=http"
+      - "com.centurylinklabs.watchtower.enable=true"
+    restart: unless-stopped
+
+networks:
+  web:
+    external: true
+
+# vim: tabstop=2 shiftwidth=2 expandtab
