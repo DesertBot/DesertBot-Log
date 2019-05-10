@@ -22,6 +22,7 @@ if ($network !== FALSE and $channel !== FALSE and $date !== FALSE) {
 else echo 'Log Prettifier';
 ?>
 </title>
+<link rel="stylesheet" type="text/css" href="fonts/dejavu_sans_mono.css">
 <?php
 $darkMode = FALSE;
 if (isset($_GET['darkmode']) and $_GET['darkmode'] === 'true') {

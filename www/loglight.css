@@ -76,7 +76,7 @@ td
 .log
 {
 	border-collapse: collapse;
-	font-family: monospace;
+	font-family: 'DejaVu Sans Mono', 'Consolas', 'Lucida Console', monospace;
 	font-size: 14px;
 }
 .user
