@@ -45,6 +45,19 @@
     --bg15: #D2D2D2;
     --fg15: #D2D2D2;
 }
+:root .dark {
+    --bg: #000;
+    --fg: #EEE;
+    --row-bg-even: #222;
+    --row-bg-odd: #111;
+    --divider: 1px solid #999;
+    --time-color: #999;
+    --time-hover: #99F;
+    --event-color: #999;
+    --link: #69F;
+    --link-visited: #C9C;
+    --link-hover: #CCF;
+}
 
 body
 {

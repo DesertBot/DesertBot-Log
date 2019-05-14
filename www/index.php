@@ -23,19 +23,16 @@ else echo 'Log Prettifier';
 ?>
 </title>
 <link rel="stylesheet" type="text/css" href="fonts/dejavu_sans_mono.css">
+<link rel="stylesheet" type="text/css" href="log.css">
 <?php
 $darkMode = FALSE;
 if (isset($_GET['darkmode']) and $_GET['darkmode'] === 'true') {
+	// Set dark CSS theme
     $darkMode = TRUE;
-    // Dark CSS theme
-    echo '<link rel="stylesheet" type="text/css" href="logdark.css">';
-}
-else {
-    echo '<link rel="stylesheet" type="text/css" href="loglight.css">';
 }
 ?>
 </head>
-<body>
+<body <?php echo ($darkMode ? 'class="dark"' : ''); ?>>
 <?php
 if ($network === FALSE) echo 'No network name provided!';
 elseif ($channel === FALSE) echo 'No channel name provided!';
