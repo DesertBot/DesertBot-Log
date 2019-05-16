@@ -34,11 +34,44 @@ if (isset($_GET['darkmode']) and $_GET['darkmode'] === 'true') {
 </head>
 <body <?php echo ($darkMode ? 'class="dark"' : ''); ?>>
 <?php
-if ($network === FALSE) echo 'No network name provided!';
-elseif ($channel === FALSE) echo 'No channel name provided!';
-elseif($date === FALSE) echo 'No date provided!';
+$darkModeLinkUrl = $_SERVER['REQUEST_URI'];
+// If there's already a darkmode setting, replace that
+if (strpos($darkModeLinkUrl, 'darkmode') !== FALSE) {
+	$darkModeLinkUrl = preg_replace('/darkmode=[^&\z]+/', 'darkmode='.($darkMode?'false':'true'), $darkModeLinkUrl);
+}
+// otherwise, add it on
+else $darkModeLinkUrl .= ($_SERVER["QUERY_STRING"]?'&':'?').'darkmode='.($darkMode?'false':'true');
+
+function printDirectory($queryString, $filePath, $toReplace, $descending) {
+	$files = array_diff(scandir($filePath), array('..', '.'));
+
+	if($descending) $files = array_reverse($files);
+
+	echo '<ul>';
+	foreach ($files as $file) {
+		echo '<li><a href="/?'.$queryString.str_replace($toReplace,'',$file).'">'.$file.'</a></li>';
+	}
+	echo '</ul>';
+}
+
+$fileRoot = '/logpath';
+if ($network === FALSE) {
+	echo '<p><span><a href="'.$darkModeLinkUrl.'">'.($darkMode?'Light':'Dark').' mode</a></span></p>'."\r\n";
+	echo 'Available Networks:'; 
+	printDirectory('darkmode='.($darkMode?'true':'false').'&network=', $fileRoot, '', FALSE);
+}
+elseif ($channel === FALSE) {
+	echo '<p><span><a href="'.$darkModeLinkUrl.'">'.($darkMode?'Light':'Dark').' mode</a> | <a href="'.preg_replace('/&?network=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Networks</a></span></p>'."\r\n";
+	echo 'Available Channels:';
+	printDirectory('darkmode='.($darkMode?'true':'false').'&network='.$network.'&channel=', $fileRoot.'/'.$network, '#', FALSE);
+}
+elseif($date === FALSE) {
+	echo '<p><span><a href="'.$darkModeLinkUrl.'">'.($darkMode?'Light':'Dark').' mode</a> | <a href="'.preg_replace('/&?channel=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Channels</a></span></p>'."\r\n";
+	echo 'Available Logs:';
+	printDirectory('darkmode='.($darkMode?'true':'false').'&network='.$network.'&channel='.$channel.'&date=', $fileRoot.'/'.$network.'/#'.$channel, '.log', TRUE);
+}
 else {
-	$filename = '/logpath/'.$network.'/#'.$channel.'/'.$date.'.log';
+	$filename = $fileRoot.'/'.$network.'/#'.$channel.'/'.$date.'.log';
 	$lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES); 
 
 	if ($lines === FALSE) echo 'Error while trying to open log file.';
@@ -53,15 +86,7 @@ else {
 		//otherwise, add it on
         else $eventLinkUrl .= '&hideevents='.($hideEvents?'false':'true');
 
-        $darkModeLinkUrl = $_SERVER['REQUEST_URI'];
-        // If there's already a darkmode setting, replace that
-        if (strpos($darkModeLinkUrl, 'darkmode') !== FALSE) {
-            $darkModeLinkUrl = preg_replace('/darkmode=[^&\z]+/', 'darkmode='.($darkMode?'false':'true'), $darkModeLinkUrl);
-        }
-        // otherwise, add it on
-        else $darkModeLinkUrl .= '&darkmode='.($darkMode?'false':'true');
-
-		echo '<p><span><a href="'.$eventLinkUrl.'">'.($hideEvents?'Show':'Hide').' events</a> | <a href="'.$darkModeLinkUrl.'">'.($darkMode?'Light':'Dark').' mode</a></span></p>'."\r\n";
+		echo '<p><span><a href="'.$eventLinkUrl.'">'.($hideEvents?'Show':'Hide').' events</a> | <a href="'.$darkModeLinkUrl.'">'.($darkMode?'Light':'Dark').' mode</a> | <a href="'.preg_replace('/&?date=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Logs</a></span></p>'."\r\n";
 		
 		echo '<table class="log" id="log"><tr class="message"> <th class="time">TIME</th> <th class="user">NICK</th> <th class="text">MESSAGE</th></tr>'."\r\n";
 		//Get the length of the first section of the first line, which is assumed to be the timestamp
