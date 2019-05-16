@@ -205,7 +205,6 @@ else {
 		echo "</table>\r\n";
 	}
 }
-echo '<br><br>Execution took '.(microtime(TRUE) - $starttime).' ms';
 ?>
 </body>
 </html>
