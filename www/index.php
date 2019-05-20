@@ -28,7 +28,7 @@ else echo 'Log Prettifier';
 $darkMode = FALSE;
 if (isset($_GET['darkmode']) and $_GET['darkmode'] === 'true') {
 	// Set dark CSS theme
-    $darkMode = TRUE;
+	$darkMode = TRUE;
 }
 ?>
 </head>
@@ -84,7 +84,7 @@ else {
 			$eventLinkUrl = preg_replace('/hideevents=[^&\z]+/', 'hideevents='.($hideEvents?'false':'true'), $eventLinkUrl);
 		}
 		//otherwise, add it on
-        else $eventLinkUrl .= '&hideevents='.($hideEvents?'false':'true');
+		else $eventLinkUrl .= '&hideevents='.($hideEvents?'false':'true');
 
 		echo '<p><span><a href="'.$eventLinkUrl.'">'.($hideEvents?'Show':'Hide').' events</a> | <a href="'.$darkModeLinkUrl.'">'.($darkMode?'Light':'Dark').' mode</a> | <a href="'.preg_replace('/&?date=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Logs</a></span></p>'."\r\n";
 		
@@ -208,3 +208,6 @@ else {
 ?>
 </body>
 </html>
+<?php
+// vim: noexpandtab tabstop=4 shiftwidth=4
+?>
