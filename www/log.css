@@ -44,6 +44,39 @@
     --fg14: #7F7F7F;
     --bg15: #D2D2D2;
     --fg15: #D2D2D2;
+
+    --nick0: hsl(0, 100%, 30%);
+    --nick1: hsl(11, 100%, 30%);
+    --nick2: hsl(22, 100%, 30%);
+    --nick3: hsl(33, 100%, 30%);
+    --nick4: hsl(45, 100%, 30%);
+    --nick5: hsl(56, 100%, 30%);
+    --nick6: hsl(67, 100%, 30%);
+    --nick7: hsl(78, 100%, 30%);
+    --nick8: hsl(90, 100%, 30%);
+    --nick9: hsl(101, 100%, 30%);
+    --nick10: hsl(112, 100%, 30%);
+    --nick11: hsl(123, 100%, 30%);
+    --nick12: hsl(135, 100%, 30%);
+    --nick13: hsl(146, 100%, 30%);
+    --nick14: hsl(157, 100%, 30%);
+    --nick15: hsl(168, 100%, 30%);
+    --nick16: hsl(180, 100%, 30%);
+    --nick17: hsl(191, 100%, 30%);
+    --nick18: hsl(202, 100%, 30%);
+    --nick19: hsl(213, 100%, 30%);
+    --nick20: hsl(225, 100%, 30%);
+    --nick21: hsl(236, 100%, 30%);
+    --nick22: hsl(247, 100%, 30%);
+    --nick23: hsl(258, 100%, 30%);
+    --nick24: hsl(270, 100%, 30%);
+    --nick25: hsl(281, 100%, 30%);
+    --nick26: hsl(292, 100%, 30%);
+    --nick27: hsl(303, 100%, 30%);
+    --nick28: hsl(315, 100%, 30%);
+    --nick29: hsl(326, 100%, 30%);
+    --nick30: hsl(337, 100%, 30%);
+    --nick31: hsl(348, 100%, 30%);
 }
 :root .dark {
     --bg: #000;
@@ -57,6 +90,39 @@
     --link: #69F;
     --link-visited: #C9C;
     --link-hover: #CCF;
+
+    --nick0: hsl(0, 100%, 70%);
+    --nick1: hsl(11, 100%, 70%);
+    --nick2: hsl(22, 100%, 70%);
+    --nick3: hsl(33, 100%, 70%);
+    --nick4: hsl(45, 100%, 70%);
+    --nick5: hsl(56, 100%, 70%);
+    --nick6: hsl(67, 100%, 70%);
+    --nick7: hsl(78, 100%, 70%);
+    --nick8: hsl(90, 100%, 70%);
+    --nick9: hsl(101, 100%, 70%);
+    --nick10: hsl(112, 100%, 70%);
+    --nick11: hsl(123, 100%, 70%);
+    --nick12: hsl(135, 100%, 70%);
+    --nick13: hsl(146, 100%, 70%);
+    --nick14: hsl(157, 100%, 70%);
+    --nick15: hsl(168, 100%, 70%);
+    --nick16: hsl(180, 100%, 70%);
+    --nick17: hsl(191, 100%, 70%);
+    --nick18: hsl(202, 100%, 70%);
+    --nick19: hsl(213, 100%, 70%);
+    --nick20: hsl(225, 100%, 70%);
+    --nick21: hsl(236, 100%, 70%);
+    --nick22: hsl(247, 100%, 70%);
+    --nick23: hsl(258, 100%, 70%);
+    --nick24: hsl(270, 100%, 70%);
+    --nick25: hsl(281, 100%, 70%);
+    --nick26: hsl(292, 100%, 70%);
+    --nick27: hsl(303, 100%, 70%);
+    --nick28: hsl(315, 100%, 70%);
+    --nick29: hsl(326, 100%, 70%);
+    --nick30: hsl(337, 100%, 70%);
+    --nick31: hsl(348, 100%, 70%);
 }
 
 body
@@ -267,3 +333,36 @@ span.fg15
 {
 	color: var(--fg15);
 }
+
+span.nick0 { color: var(--nick0); }
+span.nick1 { color: var(--nick1); }
+span.nick2 { color: var(--nick2); }
+span.nick3 { color: var(--nick3); }
+span.nick4 { color: var(--nick4); }
+span.nick5 { color: var(--nick5); }
+span.nick6 { color: var(--nick6); }
+span.nick7 { color: var(--nick7); }
+span.nick8 { color: var(--nick8); }
+span.nick9 { color: var(--nick9); }
+span.nick10 { color: var(--nick10); }
+span.nick11 { color: var(--nick11); }
+span.nick12 { color: var(--nick12); }
+span.nick13 { color: var(--nick13); }
+span.nick14 { color: var(--nick14); }
+span.nick15 { color: var(--nick15); }
+span.nick16 { color: var(--nick16); }
+span.nick17 { color: var(--nick17); }
+span.nick18 { color: var(--nick18); }
+span.nick19 { color: var(--nick19); }
+span.nick20 { color: var(--nick20); }
+span.nick21 { color: var(--nick21); }
+span.nick22 { color: var(--nick22); }
+span.nick23 { color: var(--nick23); }
+span.nick24 { color: var(--nick24); }
+span.nick25 { color: var(--nick25); }
+span.nick26 { color: var(--nick26); }
+span.nick27 { color: var(--nick27); }
+span.nick28 { color: var(--nick28); }
+span.nick29 { color: var(--nick29); }
+span.nick30 { color: var(--nick30); }
+span.nick31 { color: var(--nick31); }

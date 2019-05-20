@@ -5,7 +5,6 @@
 <meta charset="UTF-8">
 <title>
 <?php
-$starttime = microtime(TRUE);
 //First and foremost, some input validation
 $network = (isset($_GET['network']) ? htmlspecialchars($_GET['network']) : FALSE);
 $channel = (isset($_GET['channel']) ? htmlspecialchars($_GET['channel']) : FALSE);
@@ -14,23 +13,24 @@ $hideEvents = FALSE;
 if (isset($_GET['hideevents']) and $_GET['hideevents'] === 'true') {
 	$hideEvents = TRUE;
 }
+$darkMode = FALSE;
+if (isset($_GET['darkmode']) and $_GET['darkmode'] === 'true') {
+	$darkMode = TRUE;
+}
+//Nick colouring is on by default
+$colourNicks = TRUE;
+if (isset($_GET['colournicks']) and $_GET['colournicks'] === 'false') {
+	$colourNicks = FALSE;
+}
 
 if ($network !== FALSE and $channel !== FALSE and $date !== FALSE) {
 	echo 'Log for #'.$channel.' on '.$network.' from '.$date;
-	if ($hideEvents) echo ' with events hidden';
 }
 else echo 'Log Prettifier';
 ?>
 </title>
 <link rel="stylesheet" type="text/css" href="fonts/dejavu_sans_mono.css">
 <link rel="stylesheet" type="text/css" href="log.css">
-<?php
-$darkMode = FALSE;
-if (isset($_GET['darkmode']) and $_GET['darkmode'] === 'true') {
-	// Set dark CSS theme
-	$darkMode = TRUE;
-}
-?>
 </head>
 <body <?php echo ($darkMode ? 'class="dark"' : ''); ?>>
 <?php
@@ -42,32 +42,38 @@ if (strpos($darkModeLinkUrl, 'darkmode') !== FALSE) {
 // otherwise, add it on
 else $darkModeLinkUrl .= ($_SERVER["QUERY_STRING"]?'&':'?').'darkmode='.($darkMode?'false':'true');
 
+function darkModeToggle($darkModeLinkUrl, $darkMode) {
+	return '<a href="'.$darkModeLinkUrl.'">'.($darkMode?'Light':'Dark').' mode</a>';
+}
+
 function printDirectory($queryString, $filePath, $toReplace, $descending) {
 	$files = array_diff(scandir($filePath), array('..', '.'));
 
 	if($descending) $files = array_reverse($files);
 
-	echo '<ul>';
+	echo '<ul>'."\r\n";
 	foreach ($files as $file) {
-		echo '<li><a href="/?'.$queryString.str_replace($toReplace,'',$file).'">'.$file.'</a></li>';
+		echo '<li><a href="/?'.$queryString.str_replace($toReplace,'',$file).'">'.$file.'</a></li>'."\r\n";
 	}
-	echo '</ul>';
+	echo '</ul>'."\r\n";
 }
 
 $fileRoot = '/logpath';
 if ($network === FALSE) {
-	echo '<p><span><a href="'.$darkModeLinkUrl.'">'.($darkMode?'Light':'Dark').' mode</a></span></p>'."\r\n";
-	echo 'Available Networks:'; 
+	echo '<p><span>'.darkModeToggle($darkModeLinkUrl, $darkMode).'</span></p>'."\r\n";
+	echo 'Available Networks:'."\r\n"; 
 	printDirectory('darkmode='.($darkMode?'true':'false').'&network=', $fileRoot, '', FALSE);
 }
 elseif ($channel === FALSE) {
-	echo '<p><span><a href="'.$darkModeLinkUrl.'">'.($darkMode?'Light':'Dark').' mode</a> | <a href="'.preg_replace('/&?network=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Networks</a></span></p>'."\r\n";
-	echo 'Available Channels:';
+	echo '<p><span>'.darkModeToggle($darkModeLinkUrl, $darkMode);
+	echo ' | <a href="'.preg_replace('/&?network=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Networks</a></span></p>'."\r\n";
+	echo 'Available Channels:'."\r\n";
 	printDirectory('darkmode='.($darkMode?'true':'false').'&network='.$network.'&channel=', $fileRoot.'/'.$network, '#', FALSE);
 }
 elseif($date === FALSE) {
-	echo '<p><span><a href="'.$darkModeLinkUrl.'">'.($darkMode?'Light':'Dark').' mode</a> | <a href="'.preg_replace('/&?channel=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Channels</a></span></p>'."\r\n";
-	echo 'Available Logs:';
+	echo '<p><span>'.darkModeToggle($darkModeLinkUrl, $darkMode);
+	echo ' | <a href="'.preg_replace('/&?channel=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Channels</a></span></p>'."\r\n";
+	echo 'Available Logs:'."\r\n";
 	printDirectory('darkmode='.($darkMode?'true':'false').'&network='.$network.'&channel='.$channel.'&date=', $fileRoot.'/'.$network.'/#'.$channel, '.log', TRUE);
 }
 else {
@@ -78,6 +84,7 @@ else {
 	elseif (count($lines) === 0) echo 'No lines found in the log file';
 	else {
 		unset($filename);
+
 		$eventLinkUrl = $_SERVER['REQUEST_URI'];
 		//If there's already a hideevents setting, replace that
 		if (strpos($eventLinkUrl, 'hideevents') !== FALSE) {
@@ -85,17 +92,49 @@ else {
 		}
 		//otherwise, add it on
 		else $eventLinkUrl .= '&hideevents='.($hideEvents?'false':'true');
+		function hideEventsToggle($eventLinkUrl, $hideEvents) {
+			return '<a href="'.$eventLinkUrl.'">'.($hideEvents?'Show':'Hide').' events</a>';
+		}
 
-		echo '<p><span><a href="'.$eventLinkUrl.'">'.($hideEvents?'Show':'Hide').' events</a> | <a href="'.$darkModeLinkUrl.'">'.($darkMode?'Light':'Dark').' mode</a> | <a href="'.preg_replace('/&?date=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Logs</a></span></p>'."\r\n";
-		
+		$colourNicksLinkUrl = $_SERVER['REQUEST_URI'];
+		//If there's already a colournicks setting, replace that
+		if (strpos($colourNicksLinkUrl, 'colournicks') !== FALSE) {
+			$colourNicksLinkUrl = preg_replace('/colournicks=[^&\z]+/', 'colournicks='.($colourNicks?'false':'true'), $colourNicksLinkUrl);
+		}
+		//otherwise, add it on
+		else $colourNicksLinkUrl .= '&colournicks='.($colourNicks?'false':'true');
+		function colourNicksToggle($colourNicksLinkUrl, $colourNicks) {
+			return '<a href="'.$colourNicksLinkUrl.'">'.($colourNicks?'Uncoloured':'Coloured').' nicks</a>';
+		}
+
+		echo '<p><span>'.hideEventsToggle($eventLinkUrl, $hideEvents);//?'Show':'Hide').' events</a>';
+		echo ' | '.darkModeToggle($darkModeLinkUrl, $darkMode);
+		echo ' | '.colourNicksToggle($colourNicksLinkUrl, $colourNicks);
+		echo ' | <a href="'.preg_replace('/&?date=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Logs</a></span></p>'."\r\n";
+
 		echo '<table class="log" id="log"><tr class="message"> <th class="time">TIME</th> <th class="user">NICK</th> <th class="text">MESSAGE</th></tr>'."\r\n";
+
 		//Get the length of the first section of the first line, which is assumed to be the timestamp
 		$timestampLength = strlen(explode(' ', $lines[0], 2)[0]);
 		$suffixCharactersToRemove = array(')', '.');
+
+		//Nick colour hashes
+		$users = array();
+		function hashNickDjb2($nick) {
+			$hash = 5381;
+			$length = strlen($nick);
+			for ($i = 0; $i < $length; $i++) {
+				if (in_array($nick[$i], ['_', '|', '['])) break;
+				$hash ^= (($hash << 5) + ($hash >> 2)) + ord($nick[$i]);
+			}
+			return ($hash & 0xFFFFFFFF);
+		}
+
 		//Character constants used for adding colour to IRC messages
 		$COLOUR_CHAR = '';
 		$CANCEL_CHAR = '';
 		$BOLD_CHAR = '';
+		//An array to keep track of currently active text styles
 		$openStyles = array('background' => '', 'foreground' => '', 'bold' => FALSE);
 		//A function that'll get called for each message with $COLOUR_CHAR or $BOLD_CHAR in it, that styles the message accordingly
 		function handleStyleCharacters($matches) {
@@ -194,10 +233,34 @@ else {
 				if (strpos($message, $COLOUR_CHAR) !== FALSE or strpos($message, $BOLD_CHAR) !== FALSE) {
 					$message = preg_replace_callback("/($COLOUR_CHAR(\d{1,2})(,\d{1,2})?|${COLOUR_CHAR}(?=[^\d])|$BOLD_CHAR|$CANCEL_CHAR|$)/", 'handleStyleCharacters', $message);
 				}
-			
+
+				$nick = $lineSections[1];
+				//Hash nicks and assign nick colours
+				if ($nickType === 'user') {
+					$nick = htmlspecialchars(trim(html_entity_decode($lineSections[1]), '<>'));
+				}
+				if ($nickType === 'user' and $colourNicks === TRUE) {
+					$nickToHash = htmlspecialchars(trim(html_entity_decode($nick), '~&@%+'));
+					if (array_key_exists($nickToHash, $users) === FALSE) {
+						$users[$nickToHash] = hashNickDjb2($nickToHash);
+					}
+					$nickColour = $users[$nickToHash] % 32;
+				}
+
 				echo '<tr class="'.$messageType.'">';
 				echo '<td class="time"><a id="line'.$i.'" href="#line'.$i.'">'.$lineSections[0].'</a></td>';
-				echo '<td class="'.$nickType.'">'.$lineSections[1].'</td> ';
+				echo '<td class="'.$nickType.'">';
+				if ($nickType === 'user') {
+					echo '&lt;';
+					if ($colourNicks === TRUE) echo '<span class="nick'.$nickColour.'">';
+					echo $nick;
+					if ($colourNicks === TRUE) echo '</span>';
+					echo '&gt;';
+				}
+				else {
+					echo $nick;
+				}
+				echo '</td> ';
 				echo '<td class="text">'.$message.'</td>';
 				echo "</tr>\r\n";
 			}
