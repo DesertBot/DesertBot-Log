@@ -147,12 +147,17 @@ tr:nth-child(even)
 {
 	background: var(--row-bg-even);
 }
+td
+{
+	max-width: 900px;
+}
 
 .log
 {
 	border-collapse: collapse;
 	font-family: 'DejaVu Sans Mono', 'Consolas', 'Lucida Console', monospace;
 	font-size: 14px;
+    margin: auto;
 }
 .time {
     vertical-align: top;
