@@ -34,16 +34,27 @@ else echo 'Log Prettifier';
 </head>
 <body <?php echo ($darkMode ? 'class="dark"' : ''); ?>>
 <?php
-$darkModeLinkUrl = $_SERVER['REQUEST_URI'];
-// If there's already a darkmode setting, replace that
-if (strpos($darkModeLinkUrl, 'darkmode') !== FALSE) {
-	$darkModeLinkUrl = preg_replace('/darkmode=[^&\z]+/', 'darkmode='.($darkMode?'false':'true'), $darkModeLinkUrl);
+function _optionToggle($varName, $curValue, $enableStr, $disableStr) {
+	$linkUrl = $_SERVER['REQUEST_URI'];
+	if (strpos($linkUrl, $varName) !== FALSE) {
+		$linkUrl = preg_replace('/'.$varName.'=[^&\z]+/',
+		                        $varName.'='.($curValue ? 'false' : 'true'),
+		                        $linkUrl);
+	}
+	else $linkUrl .= ($_SERVER['QUERY_STRING'] ? '&' : '?').$varName.'='.($curValue ? 'false' : 'true');
+	return '<a href="'.$linkUrl.'">'.($curValue ? $disableStr : $enableStr).'</a>';
 }
-// otherwise, add it on
-else $darkModeLinkUrl .= ($_SERVER["QUERY_STRING"]?'&':'?').'darkmode='.($darkMode?'false':'true');
 
-function darkModeToggle($darkModeLinkUrl, $darkMode) {
-	return '<a href="'.$darkModeLinkUrl.'">'.($darkMode?'Light':'Dark').' mode</a>';
+function darkModeToggle($darkMode) {
+	return _optionToggle('darkmode', $darkMode, 'Dark mode', 'Light mode');
+}
+
+function hideEventsToggle($hideEvents) {
+	return _optionToggle('hideevents', $hideEvents, 'Hide events', 'Show events');
+}
+
+function colourNicksToggle($colourNicks) {
+	return _optionToggle('colournicks', $colourNicks, 'Coloured nicks', 'Uncoloured nicks');
 }
 
 function printDirectory($queryString, $filePath, $toReplace, $descending) {
@@ -58,20 +69,21 @@ function printDirectory($queryString, $filePath, $toReplace, $descending) {
 	echo '</ul>'."\r\n";
 }
 
+//If network, channel, or date are not set, list available options for those
 $fileRoot = '/logpath';
 if ($network === FALSE) {
-	echo '<p><span>'.darkModeToggle($darkModeLinkUrl, $darkMode).'</span></p>'."\r\n";
+	echo '<p><span>'.darkModeToggle($darkMode).'</span></p>'."\r\n";
 	echo 'Available Networks:'."\r\n"; 
 	printDirectory('darkmode='.($darkMode?'true':'false').'&network=', $fileRoot, '', FALSE);
 }
 elseif ($channel === FALSE) {
-	echo '<p><span>'.darkModeToggle($darkModeLinkUrl, $darkMode);
+	echo '<p><span>'.darkModeToggle($darkMode);
 	echo ' | <a href="'.preg_replace('/&?network=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Networks</a></span></p>'."\r\n";
 	echo 'Available Channels:'."\r\n";
 	printDirectory('darkmode='.($darkMode?'true':'false').'&network='.$network.'&channel=', $fileRoot.'/'.$network, '#', FALSE);
 }
-elseif($date === FALSE) {
-	echo '<p><span>'.darkModeToggle($darkModeLinkUrl, $darkMode);
+elseif ($date === FALSE) {
+	echo '<p><span>'.darkModeToggle($darkMode);
 	echo ' | <a href="'.preg_replace('/&?channel=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Channels</a></span></p>'."\r\n";
 	echo 'Available Logs:'."\r\n";
 	printDirectory('darkmode='.($darkMode?'true':'false').'&network='.$network.'&channel='.$channel.'&date=', $fileRoot.'/'.$network.'/#'.$channel, '.log', TRUE);
@@ -85,31 +97,9 @@ else {
 	else {
 		unset($filename);
 
-		$eventLinkUrl = $_SERVER['REQUEST_URI'];
-		//If there's already a hideevents setting, replace that
-		if (strpos($eventLinkUrl, 'hideevents') !== FALSE) {
-			$eventLinkUrl = preg_replace('/hideevents=[^&\z]+/', 'hideevents='.($hideEvents?'false':'true'), $eventLinkUrl);
-		}
-		//otherwise, add it on
-		else $eventLinkUrl .= '&hideevents='.($hideEvents?'false':'true');
-		function hideEventsToggle($eventLinkUrl, $hideEvents) {
-			return '<a href="'.$eventLinkUrl.'">'.($hideEvents?'Show':'Hide').' events</a>';
-		}
-
-		$colourNicksLinkUrl = $_SERVER['REQUEST_URI'];
-		//If there's already a colournicks setting, replace that
-		if (strpos($colourNicksLinkUrl, 'colournicks') !== FALSE) {
-			$colourNicksLinkUrl = preg_replace('/colournicks=[^&\z]+/', 'colournicks='.($colourNicks?'false':'true'), $colourNicksLinkUrl);
-		}
-		//otherwise, add it on
-		else $colourNicksLinkUrl .= '&colournicks='.($colourNicks?'false':'true');
-		function colourNicksToggle($colourNicksLinkUrl, $colourNicks) {
-			return '<a href="'.$colourNicksLinkUrl.'">'.($colourNicks?'Uncoloured':'Coloured').' nicks</a>';
-		}
-
-		echo '<p><span>'.hideEventsToggle($eventLinkUrl, $hideEvents);//?'Show':'Hide').' events</a>';
-		echo ' | '.darkModeToggle($darkModeLinkUrl, $darkMode);
-		echo ' | '.colourNicksToggle($colourNicksLinkUrl, $colourNicks);
+		echo '<p><span>'.hideEventsToggle($hideEvents);
+		echo ' | '.darkModeToggle($darkMode);
+		echo ' | '.colourNicksToggle($colourNicks);
 		echo ' | <a href="'.preg_replace('/&?date=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Logs</a></span></p>'."\r\n";
 
 		echo '<table class="log" id="log"><tr class="message"> <th class="time">TIME</th> <th class="user">NICK</th> <th class="text">MESSAGE</th></tr>'."\r\n";
