@@ -147,16 +147,15 @@ tr:nth-child(even)
 {
 	background: var(--row-bg-even);
 }
-td
-{
-	max-width: 900px;
-}
 
 .log
 {
 	border-collapse: collapse;
 	font-family: 'DejaVu Sans Mono', 'Consolas', 'Lucida Console', monospace;
 	font-size: 14px;
+}
+.time {
+    vertical-align: top;
 }
 .user
 {
@@ -165,12 +164,14 @@ td
 .message .user
 {
 	text-align: right;
+    vertical-align: top;
 	border-right: var(--divider);
 	padding-right: 0.5em;
 }
 .spacer
 {
 	text-align: right;
+    vertical-align: top;
 	border-right: var(--divider);
 	padding-right: 0.5em;
 	color: var(--event-color);
