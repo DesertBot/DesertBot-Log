@@ -235,17 +235,14 @@ else {
 						$users[$nickToHash] = hashNickDjb2($nickToHash);
 					}
 					$nickColour = $users[$nickToHash] % 32;
+					$nick = '<span class="nick'.$nickColour.'">'.$nick.'</span>';
 				}
 
 				echo '<tr class="'.$messageType.'">';
 				echo '<td class="time"><a id="line'.$i.'" href="#line'.$i.'">'.$lineSections[0].'</a></td>';
 				echo '<td class="'.$nickType.'">';
 				if ($nickType === 'user') {
-					echo '&lt;';
-					if ($colourNicks === TRUE) echo '<span class="nick'.$nickColour.'">';
-					echo $nick;
-					if ($colourNicks === TRUE) echo '</span>';
-					echo '&gt;';
+					echo '&lt;'.$nick.'&gt;';
 				}
 				else {
 					echo $nick;
