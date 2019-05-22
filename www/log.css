@@ -204,14 +204,14 @@ td
 }
 td.time a:link, td.time a:visited
 {
-		color: var(--time-color);
-		text-decoration: none;
+	color: var(--time-color);
+	text-decoration: none;
 }
 
 td.time a:hover
 {
-		color: var(--time-hover);
-		text-decoration: underline;
+	color: var(--time-hover);
+	text-decoration: underline;
 }
 
 /* IRC colour codes */
