@@ -1,151 +1,151 @@
 /* style created by StarlitGhost, Didero, and Heufneutje */
 :root {
-    --bg: #FFF;
-    --fg: #000;
-    --row-bg-even: #DDD;
-    --row-bg-odd: #EEE;
-    --divider: 1px solid #000;
-    --time-color: #666;
-    --time-hover: #0000EE;
-    --event-color: #666;
-    --link: #0000EE;
-    --link-visited: #551A8B;
-    --link-hover: #0000EE;
+	--bg: #FFF;
+	--fg: #000;
+	--row-bg-even: #DDD;
+	--row-bg-odd: #EEE;
+	--divider: 1px solid #000;
+	--time-color: #666;
+	--time-hover: #0000EE;
+	--event-color: #666;
+	--link: #0000EE;
+	--link-visited: #551A8B;
+	--link-hover: #0000EE;
 
-    --bg0: #FFFFFF;
-    --fg0: #FFFFFF;
-    --bg1: #000000;
-    --fg1: #000000;
-    --bg2: #00007F;
-    --fg2: #00007F;
-    --bg3: #009300;
-    --fg3: #009300;
-    --bg4: #FF0000;
-    --fg4: #FF0000;
-    --bg5: #7F0000;
-    --fg5: #7F0000;
-    --bg6: #9C009C;
-    --fg6: #9C009C;
-    --bg7: #FC7F00;
-    --fg7: #FC7F00;
-    --bg8: #FFFF00;
-    --fg8: #FFFF00;
-    --bg9: #00FC00;
-    --fg9: #00FC00;
-    --bg10: #009393;
-    --fg10: #009393;
-    --bg11: #00FFFF;
-    --fg11: #00FFFF;
-    --bg12: #0000FC;
-    --fg12: #0000FC;
-    --bg13: #FF00FF;
-    --fg13: #FF00FF;
-    --bg14: #7F7F7F;
-    --fg14: #7F7F7F;
-    --bg15: #D2D2D2;
-    --fg15: #D2D2D2;
+	--bg0: #FFFFFF;
+	--fg0: #FFFFFF;
+	--bg1: #000000;
+	--fg1: #000000;
+	--bg2: #00007F;
+	--fg2: #00007F;
+	--bg3: #009300;
+	--fg3: #009300;
+	--bg4: #FF0000;
+	--fg4: #FF0000;
+	--bg5: #7F0000;
+	--fg5: #7F0000;
+	--bg6: #9C009C;
+	--fg6: #9C009C;
+	--bg7: #FC7F00;
+	--fg7: #FC7F00;
+	--bg8: #FFFF00;
+	--fg8: #FFFF00;
+	--bg9: #00FC00;
+	--fg9: #00FC00;
+	--bg10: #009393;
+	--fg10: #009393;
+	--bg11: #00FFFF;
+	--fg11: #00FFFF;
+	--bg12: #0000FC;
+	--fg12: #0000FC;
+	--bg13: #FF00FF;
+	--fg13: #FF00FF;
+	--bg14: #7F7F7F;
+	--fg14: #7F7F7F;
+	--bg15: #D2D2D2;
+	--fg15: #D2D2D2;
 
-    --nick0: hsl(0, 100%, 30%);
-    --nick1: hsl(11, 100%, 30%);
-    --nick2: hsl(22, 100%, 30%);
-    --nick3: hsl(33, 100%, 30%);
-    --nick4: hsl(45, 100%, 30%);
-    --nick5: hsl(56, 100%, 30%);
-    --nick6: hsl(67, 100%, 30%);
-    --nick7: hsl(78, 100%, 30%);
-    --nick8: hsl(90, 100%, 30%);
-    --nick9: hsl(101, 100%, 30%);
-    --nick10: hsl(112, 100%, 30%);
-    --nick11: hsl(123, 100%, 30%);
-    --nick12: hsl(135, 100%, 30%);
-    --nick13: hsl(146, 100%, 30%);
-    --nick14: hsl(157, 100%, 30%);
-    --nick15: hsl(168, 100%, 30%);
-    --nick16: hsl(180, 100%, 30%);
-    --nick17: hsl(191, 100%, 30%);
-    --nick18: hsl(202, 100%, 30%);
-    --nick19: hsl(213, 100%, 30%);
-    --nick20: hsl(225, 100%, 30%);
-    --nick21: hsl(236, 100%, 30%);
-    --nick22: hsl(247, 100%, 30%);
-    --nick23: hsl(258, 100%, 30%);
-    --nick24: hsl(270, 100%, 30%);
-    --nick25: hsl(281, 100%, 30%);
-    --nick26: hsl(292, 100%, 30%);
-    --nick27: hsl(303, 100%, 30%);
-    --nick28: hsl(315, 100%, 30%);
-    --nick29: hsl(326, 100%, 30%);
-    --nick30: hsl(337, 100%, 30%);
-    --nick31: hsl(348, 100%, 30%);
+	--nick0: hsl(0, 100%, 30%);
+	--nick1: hsl(11, 100%, 30%);
+	--nick2: hsl(22, 100%, 30%);
+	--nick3: hsl(33, 100%, 30%);
+	--nick4: hsl(45, 100%, 30%);
+	--nick5: hsl(56, 100%, 30%);
+	--nick6: hsl(67, 100%, 30%);
+	--nick7: hsl(78, 100%, 30%);
+	--nick8: hsl(90, 100%, 30%);
+	--nick9: hsl(101, 100%, 30%);
+	--nick10: hsl(112, 100%, 30%);
+	--nick11: hsl(123, 100%, 30%);
+	--nick12: hsl(135, 100%, 30%);
+	--nick13: hsl(146, 100%, 30%);
+	--nick14: hsl(157, 100%, 30%);
+	--nick15: hsl(168, 100%, 30%);
+	--nick16: hsl(180, 100%, 30%);
+	--nick17: hsl(191, 100%, 30%);
+	--nick18: hsl(202, 100%, 30%);
+	--nick19: hsl(213, 100%, 30%);
+	--nick20: hsl(225, 100%, 30%);
+	--nick21: hsl(236, 100%, 30%);
+	--nick22: hsl(247, 100%, 30%);
+	--nick23: hsl(258, 100%, 30%);
+	--nick24: hsl(270, 100%, 30%);
+	--nick25: hsl(281, 100%, 30%);
+	--nick26: hsl(292, 100%, 30%);
+	--nick27: hsl(303, 100%, 30%);
+	--nick28: hsl(315, 100%, 30%);
+	--nick29: hsl(326, 100%, 30%);
+	--nick30: hsl(337, 100%, 30%);
+	--nick31: hsl(348, 100%, 30%);
 }
 :root .dark {
-    --bg: #000;
-    --fg: #EEE;
-    --row-bg-even: #222;
-    --row-bg-odd: #111;
-    --divider: 1px solid #999;
-    --time-color: #999;
-    --time-hover: #99F;
-    --event-color: #999;
-    --link: #69F;
-    --link-visited: #C9C;
-    --link-hover: #CCF;
+	--bg: #000;
+	--fg: #EEE;
+	--row-bg-even: #222;
+	--row-bg-odd: #111;
+	--divider: 1px solid #999;
+	--time-color: #999;
+	--time-hover: #99F;
+	--event-color: #999;
+	--link: #69F;
+	--link-visited: #C9C;
+	--link-hover: #CCF;
 
-    --nick0: hsl(0, 100%, 70%);
-    --nick1: hsl(11, 100%, 70%);
-    --nick2: hsl(22, 100%, 70%);
-    --nick3: hsl(33, 100%, 70%);
-    --nick4: hsl(45, 100%, 70%);
-    --nick5: hsl(56, 100%, 70%);
-    --nick6: hsl(67, 100%, 70%);
-    --nick7: hsl(78, 100%, 70%);
-    --nick8: hsl(90, 100%, 70%);
-    --nick9: hsl(101, 100%, 70%);
-    --nick10: hsl(112, 100%, 70%);
-    --nick11: hsl(123, 100%, 70%);
-    --nick12: hsl(135, 100%, 70%);
-    --nick13: hsl(146, 100%, 70%);
-    --nick14: hsl(157, 100%, 70%);
-    --nick15: hsl(168, 100%, 70%);
-    --nick16: hsl(180, 100%, 70%);
-    --nick17: hsl(191, 100%, 70%);
-    --nick18: hsl(202, 100%, 70%);
-    --nick19: hsl(213, 100%, 70%);
-    --nick20: hsl(225, 100%, 70%);
-    --nick21: hsl(236, 100%, 70%);
-    --nick22: hsl(247, 100%, 70%);
-    --nick23: hsl(258, 100%, 70%);
-    --nick24: hsl(270, 100%, 70%);
-    --nick25: hsl(281, 100%, 70%);
-    --nick26: hsl(292, 100%, 70%);
-    --nick27: hsl(303, 100%, 70%);
-    --nick28: hsl(315, 100%, 70%);
-    --nick29: hsl(326, 100%, 70%);
-    --nick30: hsl(337, 100%, 70%);
-    --nick31: hsl(348, 100%, 70%);
+	--nick0: hsl(0, 100%, 70%);
+	--nick1: hsl(11, 100%, 70%);
+	--nick2: hsl(22, 100%, 70%);
+	--nick3: hsl(33, 100%, 70%);
+	--nick4: hsl(45, 100%, 70%);
+	--nick5: hsl(56, 100%, 70%);
+	--nick6: hsl(67, 100%, 70%);
+	--nick7: hsl(78, 100%, 70%);
+	--nick8: hsl(90, 100%, 70%);
+	--nick9: hsl(101, 100%, 70%);
+	--nick10: hsl(112, 100%, 70%);
+	--nick11: hsl(123, 100%, 70%);
+	--nick12: hsl(135, 100%, 70%);
+	--nick13: hsl(146, 100%, 70%);
+	--nick14: hsl(157, 100%, 70%);
+	--nick15: hsl(168, 100%, 70%);
+	--nick16: hsl(180, 100%, 70%);
+	--nick17: hsl(191, 100%, 70%);
+	--nick18: hsl(202, 100%, 70%);
+	--nick19: hsl(213, 100%, 70%);
+	--nick20: hsl(225, 100%, 70%);
+	--nick21: hsl(236, 100%, 70%);
+	--nick22: hsl(247, 100%, 70%);
+	--nick23: hsl(258, 100%, 70%);
+	--nick24: hsl(270, 100%, 70%);
+	--nick25: hsl(281, 100%, 70%);
+	--nick26: hsl(292, 100%, 70%);
+	--nick27: hsl(303, 100%, 70%);
+	--nick28: hsl(315, 100%, 70%);
+	--nick29: hsl(326, 100%, 70%);
+	--nick30: hsl(337, 100%, 70%);
+	--nick31: hsl(348, 100%, 70%);
 }
 
 body
 {
-    background: var(--bg);
-    color: var(--fg);
-    text-size-adjust: 200%;
-    -webkit-text-size-adjust: 200%;
+	background: var(--bg);
+	color: var(--fg);
+	text-size-adjust: 200%;
+	-webkit-text-size-adjust: 200%;
 }
 
 th, .text {
-    text-size-adjust: 300%;
-    -webkit-text-size-adjust: 300%;
+	text-size-adjust: 300%;
+	-webkit-text-size-adjust: 300%;
 }
 
 a {
-    color: var(--link);
+	color: var(--link);
 }
 a:visited {
-    color: var(--link-visited);
+	color: var(--link-visited);
 }
 a:hover {
-    color: var(--link-hover);
+	color: var(--link-hover);
 }
 tr:nth-child(odd)
 {
@@ -165,10 +165,10 @@ td
 	border-collapse: collapse;
 	font-family: 'DejaVu Sans Mono', 'Consolas', 'Lucida Console', monospace;
 	font-size: 14px;
-    margin: auto;
+	margin: auto;
 }
 .time {
-    vertical-align: top;
+	vertical-align: top;
 }
 .user
 {
@@ -177,14 +177,14 @@ td
 .message .user
 {
 	text-align: right;
-    vertical-align: top;
+	vertical-align: top;
 	border-right: var(--divider);
-    padding-right: 0.5em;
+	padding-right: 0.5em;
 }
 .spacer
 {
 	text-align: right;
-    vertical-align: top;
+	vertical-align: top;
 	border-right: var(--divider);
 	padding-right: 0.5em;
 	color: var(--event-color);
@@ -192,7 +192,7 @@ td
 .text
 {
 	word-wrap: break-word;
-    padding: 0em 0.5em;
+	padding: 0em 0.5em;
 }
 .action .text
 {
@@ -204,14 +204,14 @@ td
 }
 td.time a:link, td.time a:visited
 {
-        color: var(--time-color);
-        text-decoration: none;
+		color: var(--time-color);
+		text-decoration: none;
 }
 
 td.time a:hover
 {
-        color: var(--time-hover);
-        text-decoration: underline;
+		color: var(--time-hover);
+		text-decoration: underline;
 }
 
 /* IRC colour codes */
