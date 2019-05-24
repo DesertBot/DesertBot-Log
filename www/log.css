@@ -2,6 +2,7 @@
 :root {
 	--bg: #FFF;
 	--fg: #000;
+    --menu-bg: #DDD;
 	--row-bg-even: #DDD;
 	--row-bg-odd: #EEE;
 	--divider: 1px solid #000;
@@ -81,6 +82,7 @@
 :root .dark {
 	--bg: #000;
 	--fg: #EEE;
+    --menu-bg: #222;
 	--row-bg-even: #222;
 	--row-bg-odd: #111;
 	--divider: 1px solid #999;
@@ -127,10 +129,23 @@
 
 body
 {
+    margin-top: 0px;
 	background: var(--bg);
 	color: var(--fg);
 	text-size-adjust: 200%;
 	-webkit-text-size-adjust: 200%;
+}
+
+#menu {
+	font-family: 'DejaVu Sans Mono', 'Consolas', 'Lucida Console', monospace;
+    background-color: var(--menu-bg);
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+
+#header {
+    margin-top: 0.5em;
 }
 
 th, .text {

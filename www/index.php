@@ -72,19 +72,23 @@ function printDirectory($queryString, $filePath, $toReplace, $descending) {
 //If network, channel, or date are not set, list available options for those
 $fileRoot = '/logpath';
 if ($network === FALSE) {
-	echo '<p><span>'.darkModeToggle($darkMode).'</span></p>'."\r\n";
+	echo '<div id="menu">'.darkModeToggle($darkMode).'</div>'."\r\n";
 	echo 'Available Networks:'."\r\n"; 
 	printDirectory('darkmode='.($darkMode?'true':'false').'&network=', $fileRoot, '', FALSE);
 }
 elseif ($channel === FALSE) {
-	echo '<p><span>'.darkModeToggle($darkMode);
-	echo ' | <a href="'.preg_replace('/&?network=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Networks</a></span></p>'."\r\n";
+	echo '<div id="menu">'.darkModeToggle($darkMode);
+	echo ' | <a href="'.preg_replace('/&?network=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Networks</a>';
+	echo '<div id="header">Channels on '.$network.'</div>';
+	echo '</div>'."\r\n";
 	echo 'Available Channels:'."\r\n";
 	printDirectory('darkmode='.($darkMode?'true':'false').'&network='.$network.'&channel=', $fileRoot.'/'.$network, '#', FALSE);
 }
 elseif ($date === FALSE) {
-	echo '<p><span>'.darkModeToggle($darkMode);
-	echo ' | <a href="'.preg_replace('/&?channel=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Channels</a></span></p>'."\r\n";
+	echo '<div id="menu">'.darkModeToggle($darkMode);
+	echo ' | <a href="'.preg_replace('/&?channel=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Channels</a>';
+	echo '<div id="header">Logs for #'.$channel.' on '.$network.'</div>';
+	echo '</div>'."\r\n";
 	echo 'Available Logs:'."\r\n";
 	printDirectory('darkmode='.($darkMode?'true':'false').'&network='.$network.'&channel='.$channel.'&date=', $fileRoot.'/'.$network.'/#'.$channel, '.log', TRUE);
 }
@@ -97,10 +101,12 @@ else {
 	else {
 		unset($filename);
 
-		echo '<p><span>'.hideEventsToggle($hideEvents);
+		echo '<div id="menu">'.hideEventsToggle($hideEvents);
 		echo ' | '.darkModeToggle($darkMode);
 		echo ' | '.colourNicksToggle($colourNicks);
-		echo ' | <a href="'.preg_replace('/&?date=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Logs</a></span></p>'."\r\n";
+		echo ' | <a href="'.preg_replace('/&?date=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Logs</a>';
+		echo '<div id="header">#'.$channel.' log for '.$date.' on '.$network.'</div>';
+		echo '</div>'."\r\n";
 
 		echo '<table class="log" id="log"><tr class="message"> <th class="time">TIME</th> <th class="user">NICK</th> <th class="text">MESSAGE</th></tr>'."\r\n";
 
