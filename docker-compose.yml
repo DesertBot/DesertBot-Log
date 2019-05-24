@@ -2,8 +2,11 @@ version: '3.5'
 
 services:
   chat-logs:
-    image: php:7.2-apache
+    image: starlitghost/DesertBot-Log:latest
     container_name: chat-logs
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - 8085:80
     networks:
@@ -11,7 +14,6 @@ services:
     environment:
       - ALLOW_OVERRIDE=true
     volumes:
-      - ${PERSISTENT_DIR}/www:/var/www/html
       - ${LOG_DIR}:/logpath
     labels:
       - "traefik.domain=logs.${DOMAIN_DBCO}"
