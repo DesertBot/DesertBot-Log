@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   chat-logs:
-    image: starlitghost/DesertBot-Log:latest
+    image: starlitghost/desertbot-log:latest
     container_name: chat-logs
     build:
       context: .
