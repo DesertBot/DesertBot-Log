@@ -125,6 +125,15 @@ else {
 			return ($hash & 0xFFFFFFFF);
 		}
 
+		function wrapInNickColourSpan($nick, $users, $string) {
+			$nickToHash = htmlspecialchars(trim(html_entity_decode($nick), '~&@%+'));
+			if (array_key_exists($nickToHash, $users) === FALSE) {
+				$users[$nickToHash] = hashNickDjb2($nickToHash);
+			}
+			$nickColour = $users[$nickToHash] % 32;
+			return '<span class="nick'.$nickColour.'">'.$string.'</span>';
+		}
+
 		//Character constants used for adding colour to IRC messages
 		$COLOUR_CHAR = '';
 		$CANCEL_CHAR = '';
@@ -235,12 +244,13 @@ else {
 					$nick = htmlspecialchars(trim(html_entity_decode($lineSections[1]), '<>'));
 				}
 				if ($nickType === 'user' and $colourNicks === TRUE) {
-					$nickToHash = htmlspecialchars(trim(html_entity_decode($nick), '~&@%+'));
-					if (array_key_exists($nickToHash, $users) === FALSE) {
-						$users[$nickToHash] = hashNickDjb2($nickToHash);
-					}
-					$nickColour = $users[$nickToHash] % 32;
-					$nick = '<span class="nick'.$nickColour.'">'.$nick.'</span>';
+					$nick = wrapInNickColourSpan($nick, $users, $nick);
+				}
+				//Colour actions with their nick's colour
+				if ($messageType === 'action' and $colourNicks === TRUE) {
+					$nickToColour = explode(" ", $message)[0];
+					$nick = wrapInNickColourSpan($nickToColour, $users, $nick);
+					$message = wrapInNickColourSpan($nickToColour, $users, $message);
 				}
 
 				echo '<tr class="'.$messageType.'">';
