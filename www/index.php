@@ -33,6 +33,7 @@ else echo 'Log Prettifier';
 <link rel="stylesheet" type="text/css" href="log.css">
 </head>
 <body <?php echo ($darkMode ? 'class="dark"' : ''); ?>>
+<div id="page-wrapper">
 <?php
 function _optionToggle($varName, $curValue, $enableStr, $disableStr) {
 	$linkUrl = $_SERVER['REQUEST_URI'];
@@ -42,7 +43,7 @@ function _optionToggle($varName, $curValue, $enableStr, $disableStr) {
 		                        $linkUrl);
 	}
 	else $linkUrl .= ($_SERVER['QUERY_STRING'] ? '&' : '?').$varName.'='.($curValue ? 'false' : 'true');
-	return '<a href="'.$linkUrl.'">'.($curValue ? $disableStr : $enableStr).'</a>';
+	return '<a class="optiontoggle" href="'.$linkUrl.'">'.($curValue ? $disableStr : $enableStr).'</a>';
 }
 
 function darkModeToggle($darkMode) {
@@ -62,34 +63,69 @@ function printDirectory($queryString, $filePath, $toReplace, $descending) {
 
 	if($descending) $files = array_reverse($files);
 
-	echo '<ul>'."\r\n";
+	echo '<ul class="dirlist">'."\r\n";
 	foreach ($files as $file) {
 		echo '<li><a href="/?'.$queryString.str_replace($toReplace,'',$file).'">'.$file.'</a></li>'."\r\n";
 	}
 	echo '</ul>'."\r\n";
 }
 
+function printHeader($menu, $title) {
+	echo '<header id="header">'."\r\n";
+	echo '<div id="menu">'.$menu.'</div>'."\r\n";
+	echo '<div id="title">'.$title.'</div>'."\r\n";
+	echo '<div class="center"><a class="jump" href="#footer">Jump To Bottom</a></div>'."\r\n";
+	echo '</header>';
+}
+
+function buildUpLink($key, $text) {
+	$upURL = preg_replace('/&?'.$key.'=[^&\z]+/', '', $_SERVER['REQUEST_URI']);
+	return '<a class="uplink" href="'.$upURL.'">'.$text.'</a>';
+}
+
+$startContent = '<div id="content-wrapper">'."\r\n";
+$endContent = '</div>'."\r\n";
+
 //If network, channel, or date are not set, list available options for those
 $fileRoot = '/logpath';
 if ($network === FALSE) {
-	echo '<div id="menu">'.darkModeToggle($darkMode);
-	echo '<div id="header">Logged networks</div>';
-	echo '</div>'."\r\n";
-	printDirectory('darkmode='.($darkMode?'true':'false').'&network=', $fileRoot, '', FALSE);
+	$menu = darkModeToggle($darkMode);
+	$title = 'Logged networks';
+	printHeader($menu, $title);
+
+	echo $startContent;
+
+	$queryString = 'darkmode='.($darkMode?'true':'false').'&network=';
+	printDirectory($queryString, $fileRoot, '', FALSE);
+
+	echo $endContent;
 }
 elseif ($channel === FALSE) {
-	echo '<div id="menu">'.darkModeToggle($darkMode);
-	echo ' | <a href="'.preg_replace('/&?network=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Networks</a>';
-	echo '<div id="header">Logged channels on '.$network.'</div>';
-	echo '</div>'."\r\n";
-	printDirectory('darkmode='.($darkMode?'true':'false').'&network='.$network.'&channel=', $fileRoot.'/'.$network, '#', FALSE);
+	$menu = darkModeToggle($darkMode).' | '.buildUpLink('network', 'All Networks');
+	$title = 'Logged channels on '.$network;
+	printHeader($menu, $title);
+
+	echo $startContent;
+
+	$queryString = 'darkmode='.($darkMode?'true':'false').'&network='.$network.'&channel=';
+	printDirectory($queryString, $fileRoot.'/'.$network, '#', FALSE);
+
+	echo $endContent;
 }
 elseif ($date === FALSE) {
-	echo '<div id="menu">'.darkModeToggle($darkMode);
-	echo ' | <a href="'.preg_replace('/&?channel=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Channels</a>';
-	echo '<div id="header">Logs for #'.$channel.' on '.$network.'</div>';
-	echo '</div>'."\r\n";
-	printDirectory('darkmode='.($darkMode?'true':'false').'&network='.$network.'&channel='.$channel.'&date=', $fileRoot.'/'.$network.'/#'.$channel, '.log', TRUE);
+	$menu = darkModeToggle($darkMode).' | '.buildUpLink('channel', 'All Channels');
+	$title = 'Logs for #'.$channel.' on '.$network;
+	printHeader($menu, $title);
+
+	echo $startContent;
+
+	$queryString = 'darkmode='.($darkMode?'true':'false')
+		         . '&network='.$network
+				 . '&channel='.$channel
+				 . '&date=';
+	printDirectory($queryString, $fileRoot.'/'.$network.'/#'.$channel, '.log', TRUE);
+
+	echo $endContent;
 }
 else {
 	$filename = $fileRoot.'/'.$network.'/#'.$channel.'/'.$date.'.log';
@@ -100,12 +136,14 @@ else {
 	else {
 		unset($filename);
 
-		echo '<div id="menu">'.hideEventsToggle($hideEvents);
-		echo ' | '.darkModeToggle($darkMode);
-		echo ' | '.colourNicksToggle($colourNicks);
-		echo ' | <a href="'.preg_replace('/&?date=[^&\z]+/', '', $_SERVER['REQUEST_URI']).'">All Logs</a>';
-		echo '<div id="header">#'.$channel.' log for '.$date.' on '.$network.'</div>';
-		echo '</div>'."\r\n";
+		$menu = hideEventsToggle($hideEvents)
+			  . ' | '.darkModeToggle($darkMode)
+			  . ' | '.colourNicksToggle($colourNicks)
+			  . ' | '.buildUpLink('date', 'All Logs');
+		$title = '#'.$channel.' log for '.$date.' on '.$network;
+		printHeader($menu, $title);
+
+		echo $startContent;
 
 		echo '<table class="log" id="log"><tr class="message"> <th class="time">TIME</th> <th class="user">NICK</th> <th class="text">MESSAGE</th></tr>'."\r\n";
 
@@ -268,9 +306,16 @@ else {
 			}
 		}
 		echo "</table>\r\n";
+
+		echo $endContent;
 	}
 }
 ?>
+<footer id="footer">
+<div class="center"><a class="jump" href="#header">Jump To Top</a></div>
+<div class="center">Contribute to the log viewer on <a href="https://github.com/DesertBot/DesertBot-Log">GitHub</a></div>
+</footer>
+</div>
 </body>
 </html>
 <?php
