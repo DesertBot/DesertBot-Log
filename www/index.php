@@ -74,7 +74,7 @@ function printHeader($menu, $title) {
 	echo '<header id="header">'."\r\n";
 	echo '<div id="menu">'.$menu.'</div>'."\r\n";
 	echo '<div id="title">'.$title.'</div>'."\r\n";
-	echo '<div class="center"><a class="jump" href="#footer">Jump To Bottom</a></div>'."\r\n";
+	echo '<div class="jump"><a href="#footer">Jump To Bottom</a></div>'."\r\n";
 	echo '</header>';
 }
 
@@ -312,7 +312,7 @@ else {
 }
 ?>
 <footer id="footer">
-<div class="center"><a class="jump" href="#header">Jump To Top</a></div>
+<div class="jump"><a href="#header">Jump To Top</a></div>
 <div class="center">Contribute to the log viewer on <a href="https://github.com/DesertBot/DesertBot-Log">GitHub</a></div>
 </footer>
 </div>
