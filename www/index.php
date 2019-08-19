@@ -31,6 +31,7 @@ else echo 'Log Prettifier';
 </title>
 <link rel="stylesheet" type="text/css" href="fonts/dejavu_sans_mono.css">
 <link rel="stylesheet" type="text/css" href="log.css">
+<meta name="robots" content="noindex">
 </head>
 <body <?php echo ($darkMode ? 'class="dark"' : ''); ?>>
 <div id="page-wrapper">
