@@ -7,8 +7,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - 8085:80
     networks:
       - web
     environment:
@@ -24,6 +22,37 @@ services:
       - "traefik.port=80"
       - "traefik.protocol=http"
       - "com.centurylinklabs.watchtower.enable=true"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost"]
+      interval: 5m
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+  chat-logs-test:
+    image: php:8.0-apache
+    container_name: chat-logs-test
+    networks:
+      - web
+    environment:
+      - ALLOW_OVERRIDE=true
+    volumes:
+      - ${PERSISTENT_DIR}/www:/var/www/html
+      - ${LOG_DIR}:/logpath
+    labels:
+      - "traefik.domain=logs-test.${DOMAIN_DBCO}"
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+      - "traefik.backend=chat-logs-test"
+      - "traefik.frontend.rule=Host:logs-test.${DOMAIN_DBCO}"
+      - "traefik.port=80"
+      - "traefik.protocol=http"
+      - "com.centurylinklabs.watchtower.enable=true"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost"]
+      interval: 5m
+      timeout: 5s
+      retries: 3
     restart: unless-stopped
 
 networks:

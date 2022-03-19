@@ -39,7 +39,7 @@ else echo 'Log Prettifier';
 function _optionToggle($varName, $curValue, $enableStr, $disableStr) {
     $linkUrl = $_SERVER['REQUEST_URI'];
     if (strpos($linkUrl, $varName) !== FALSE) {
-        $linkUrl = preg_replace('/'.$varName.'=[^&\z]+/',
+        $linkUrl = preg_replace('/'.$varName.'=[^&#]+/',
                                 $varName.'='.($curValue ? 'false' : 'true'),
                                 $linkUrl);
     }
@@ -80,7 +80,7 @@ function printHeader($menu, $title) {
 }
 
 function buildUpLink($key, $text) {
-    $upURL = preg_replace('/&?'.$key.'=[^&\z]+/', '', $_SERVER['REQUEST_URI']);
+    $upURL = preg_replace('/&?'.$key.'=[^&#]+/', '', $_SERVER['REQUEST_URI']);
     return '<a class="uplink" href="'.$upURL.'">'.$text.'</a>';
 }
 
