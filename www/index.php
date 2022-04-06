@@ -8,7 +8,7 @@
 //First and foremost, some input validation
 $network = (isset($_GET['network']) ? htmlspecialchars($_GET['network']) : FALSE);
 $channel = (isset($_GET['channel']) ? htmlspecialchars($_GET['channel']) : FALSE);
-$date = (isset($_GET['date']) and preg_match('/\A\d{4}-\d{2}-\d{2}\z/', $_GET['date']) === 1 ? htmlspecialchars($_GET['date']) : FALSE);
+$date = ((isset($_GET['date']) and preg_match('/\A\d{4}-\d{2}-\d{2}\z/', $_GET['date']) === 1) ? htmlspecialchars($_GET['date']) : FALSE);
 $hideEvents = FALSE;
 if (isset($_GET['hideevents']) and $_GET['hideevents'] === 'true') {
     $hideEvents = TRUE;
